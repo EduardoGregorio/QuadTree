@@ -55,12 +55,26 @@ public class QuadTree<Key extends Comparable<Key>, Value>  {
         Key ymin = rect.intervalY.min();
         Key xmax = rect.intervalX.max();
         Key ymax = rect.intervalY.max();
-        if (rect.contains(h.x, h.y))
-            StdOut.println("    (" + h.x + ", " + h.y + ") " + h.value);
-        if ( less(xmin, h.x) &&  less(ymin, h.y)) query2D(h.SW, rect);
-        if ( less(xmin, h.x) && !less(ymax, h.y)) query2D(h.NW, rect);
-        if (!less(xmax, h.x) &&  less(ymin, h.y)) query2D(h.SE, rect);
-        if (!less(xmax, h.x) && !less(ymax, h.y)) query2D(h.NE, rect);
+		StdOut.println("Queryng " + "(" + h.x + ", " + h.y + ") " + h.value);
+        if (rect.contains(h.x, h.y)) 
+            StdOut.println("Contains(" + h.x + ", " + h.y + ") " + h.value);
+        if ( less(xmin, h.x) &&  less(ymin, h.y)){
+			StdOut.println("SW");
+			query2D(h.SW, rect);
+		}
+        if ( less(xmin, h.x) && !less(ymax, h.y)) {
+			StdOut.println("NW");
+			query2D(h.NW, rect);
+		}
+        if (!less(xmax, h.x) &&  less(ymin, h.y)) {
+			StdOut.println("SE");
+			query2D(h.SE, rect);
+		}
+        if (!less(xmax, h.x) && !less(ymax, h.y)) {
+			StdOut.println("NE");
+			query2D(h.NE, rect);
+		}
+		StdOut.println("Finished Queryng " + h.value);
     }
 
 
@@ -87,6 +101,7 @@ public class QuadTree<Key extends Comparable<Key>, Value>  {
             Integer y = (int) (100 * Math.random());
             // StdOut.println("(" + x + ", " + y + ")");
             st.insert(x, y, "P" + i);
+			StdOut.println("P" + i + ": " + x + ", " + y);
         }
         StdOut.println("Done preprocessing " + N + " points");
 
